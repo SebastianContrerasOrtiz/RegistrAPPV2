@@ -1,0 +1,39 @@
+<ion-header [translucent]="true">
+  <ion-button color="dark" [routerLink]="['/login']">Volver</ion-button>
+    <ion-toolbar color="warning">
+      <ion-title class="ion-padding-top ion-text-center"> 
+        
+         RegistroApp recuperar Contraseña
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content [fullscreen]="true" class="ion-padding">
+  
+    <div class="logo">
+      <img src="..//../assets/Img/RegistroApp.jpg" alt="Logo Duoc">
+    </div>
+    
+   <br>
+  
+  <div class="ion-padding-top ion-text-center">
+    <h3>Recupera tu Contraseña ahora ya </h3>
+  </div>
+  <br>
+  <form >
+    <ion-item>
+        <ion-label >Ingresa tu Correo </ion-label>
+        <ion-input type="String" placeholder="Ej:AAAA@gmail.com"></ion-input>
+    </ion-item>
+    
+    <br>
+    <div class="recuperar">
+        <ion-button color="warning" [routerLink]="['/login']">Recuperar</ion-button>
+    </div>
+  </form>
+
+  
+
+
+  </ion-content>
+  
