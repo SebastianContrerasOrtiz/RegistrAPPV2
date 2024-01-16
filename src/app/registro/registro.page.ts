@@ -32,10 +32,10 @@ export class RegistroPage implements OnInit {
   ngOnInit() {
   }
 
-  async registrarse(){
-    var f = this.formularioRegistro.value;
+  async registrarse(){     //método registrarse
+    var f = this.formularioRegistro.value;    //formularioRegistro es un formulario Angular y f contiene los valores ingresados por el usuario.
 
-    if(this.formularioRegistro.invalid){
+    if(this.formularioRegistro.invalid){  //Realiza una verificación para asegurarse de que el formulario no esté en un estado inválido. 
       //this.router.navigate(['/registro']);
       const alert = await this.alertController.create({
         header: 'Datos incorrectos',
@@ -43,20 +43,27 @@ export class RegistroPage implements OnInit {
         buttons: ['Aceptar']
       });
   
-      await alert.present();
+      await alert.present();   //Se utiliza await para esperar la presentación de la alerta antes de continuar.
+
       return;
     }else{
-      this.navCtrl.navigateRoot('home');
+      this.navCtrl.navigateRoot('home'); //Si el formulario es válido navega a la ruta home 
     }
 
-    var usuario = {
+    var usuario = {     //Crea un objeto usuario con propiedades nombre y password utilizando los valores del formulario.
       nombre: f.nombre,
       password: f.password
     }
 
-    localStorage.setItem('usuario',JSON.stringify(usuario));
+    localStorage.setItem('usuario',JSON.stringify(usuario));   //Almacena el objeto usuario en el localStorage
+                                                              //persistirá los datos del usuario en el almacenamiento local del navegador.
 
-    localStorage.setItem('ingresado','true');
+    localStorage.setItem('ingresado','true'); //Establece un indicador en el localStorage que indica que el usuario ha iniciado sesión.
     this.navCtrl.navigateRoot('home');
   }
 }
+
+
+//registtro de usuarios
+//validacion formularios
+//almacenamiento en el localstorage

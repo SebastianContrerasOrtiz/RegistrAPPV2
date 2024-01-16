@@ -9,10 +9,10 @@ export class ApiService {
 
   constructor(public _http: HttpClient) { }
 
-  obtenerDatos<T> (url : string){
+  obtenerDatos<T> (url : string){ //T se utilizará para indicar el tipo de los datos que se espera recibir de la solicitud HTTP.
 
     url = 'https://jsonplaceholder.typicode.com/users';
-    return this._http.get<T[]>(url);
+    return this._http.get<T[]>(url);  //Realiza una solicitud HTTP GET utilizando el servicio HttpClient
     
   }
 }

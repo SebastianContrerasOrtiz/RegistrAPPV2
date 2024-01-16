@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { BarcodeScanner } from '@awesome-cordova-plugins/barcode-scanner/ngx';
 import { NavController } from '@ionic/angular';
 
 @Component({
@@ -12,22 +11,15 @@ export class HomePage {
   
   usuario: any;
 
-  token = localStorage.getItem("token");
-
-  constructor(private barcodeScanner: BarcodeScanner, public router: Router, public navCtrl: NavController) {}
+  token = localStorage.getItem("token"); //Asigna el valor recuperado del elemento "token" en el almacenamiento local al miembro de la clase llamado token
+  //El método getItem se utiliza para obtener el valor asociado con la clave "token" almacenado en el almacenamiento local del navegador.
+  constructor( public router: Router, public navCtrl: NavController) {}
 
   ngOnInit() {
-    console.log("token: ", this.token);
+    console.log("token: ", this.token); //Imprime en la consola el valor actual de la variable token
     localStorage.removeItem("token");
   }
 
-  scan(){
-    this.barcodeScanner.scan().then(barcodeData => {
-      console.log('Barcode data', barcodeData);
-     }).catch(err => {
-         console.log('Error', err);
-     });
-  }
 
   logout(){
     //localStorage.removeItem('ingresado');

@@ -15,10 +15,10 @@
   <br>
 
   <ion-list >
-    <ion-item *ngFor="let item of getData">
-      <ion-icon name="person"></ion-icon>
+    <ion-item *ngFor="let item of getData"> <!--*ngFor para iterar sobre cada elemento en el array-->
+      <ion-icon name="person"></ion-icon> <!--icono para mostrarse con el usuario-->
       <ion-label>
-        <h2>{{ item.name }}</h2>
+        <h2>{{ item.name }}</h2> <!-- interpolacion de datos.Para mostrar el valor de la propiedad name de cada elemento en la lista-->
         <h2>{{ item.email }}</h2>
       </ion-label>
     </ion-item>
