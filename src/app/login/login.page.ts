@@ -7,9 +7,9 @@ import { AlertController, NavController } from '@ionic/angular';
   selector: 'app-login',
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
-})
+})                                        
 export class LoginPage implements OnInit {
-
+                                                //aca se hizo persistencia   
   loginForm: FormGroup;
 
   constructor(
