@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { NavigationExtras, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { AlertController, NavController } from '@ionic/angular';
-//import { DbService } from '../servicio/db.service';
 
 @Component({
   selector: 'app-login',
@@ -11,60 +10,65 @@ import { AlertController, NavController } from '@ionic/angular';
 })
 export class LoginPage implements OnInit {
 
-  nombre: String;
-  loginForm: FormGroup; //se utilizará para manejar el formulario de inicio de sesión.
+  loginForm: FormGroup;
 
-  constructor(public formBuilder: FormBuilder,private router: Router,  //Inyecta el servicio FormBuilder para ayudar en la creación de formularios reactivos.
-    public alertController: AlertController,
-    public navControl: NavController) {
-    this.loginForm = this.formBuilder.group ({   //Se aplican validaciones como requisito, longitud mínima y máxima para cada campo
-      nombre: new FormControl('', Validators.compose([
-        Validators.required,
-        Validators.minLength(3),
-        Validators.maxLength(15)
+  constructor(
+    private formBuilder: FormBuilder,
+    private alertController: AlertController,
+    private navControl: NavController,
+    private router: Router
+  ) {
+    this.loginForm = this.formBuilder.group({
+      nombre: new FormControl('', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(15)])),
+      password: new FormControl('', Validators.compose([Validators.required, Validators.minLength(6), Validators.maxLength(10)]))
+    });
 
-      ])),      
-      password: new FormControl('', Validators.compose([
-        Validators.required,
-        Validators.minLength(6),
-        Validators.maxLength(10)
-      ]))
-    })
-   }
-  ngOnInit() {
-  }
- 
-    async login(){  //Se define un método login que se ejecuta cuando se intenta iniciar sesión.
-      var f = this.loginForm.value;
-  
-      var usuario = JSON.parse(localStorage.getItem('usuario'));  //Realiza la validación comparando los datos ingresados con los almacenados en el almacenamiento local (localStorage)
-  
-      if(usuario.nombre == f.nombre && usuario.password == f.password){
-        console.log('Ingresado');
-        localStorage.setItem('ingresado','true');
-        this.navControl.navigateRoot('home');   //credenciales correctas navega a home
-        //this.router.navigate(['/home']);      //de lo contrario redirige a inicio sesion
-        
-      }
-      else{
-        this.router.navigate(['/login']);
-        const alert = await this.alertController.create({
-          header: 'Datos Incorrectos',
-          message: 'Los datos que ingresaste no estan en la base de datos.',
-          buttons: ['Aceptar']
-          
-        });
-    
-        await alert.present();
-      }
-    
+    // Intenta cargar las credenciales almacenadas en el componente al iniciar la página
+    const lastLoggedInUser = JSON.parse(localStorage.getItem('lastLoggedInUser')) || {};
+    this.loginForm.patchValue(lastLoggedInUser);
   }
 
+  ngOnInit() {}
 
-  Registro(){
-    this.router.navigate(['/registro']);  //navega a la página de registro cuando se llama.
+  async login() {
+    const f = this.loginForm.value;
+
+    // Tu lógica de autenticación aquí
+
+    // Ejemplo de lógica de autenticación, ajusta según tus necesidades
+    const usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
+    const usuario = usuarios.find(u => u.nombre === f.nombre && u.password === f.password);
+
+    if (usuario) {
+      localStorage.setItem('lastLoggedInUser', JSON.stringify({ nombre: f.nombre, password: f.password }));
+      console.log('Ingresado');
+      this.navControl.navigateRoot('/home');
+    } else {
+      this.navControl.navigateRoot('/login');
+
+      const alert = await this.alertController.create({
+        header: 'Datos Incorrectos',
+        message: 'Los datos que ingresaste no están en la base de datos.',
+        buttons: ['Aceptar']
+      });
+
+      await alert.present();
+    }
   }
-  
-  
 
+  Registro() {
+    this.router.navigate(['/registro']);  // Navega a la página de registro cuando se llama.
+  }
 }
+
+
+
+
+
+
+
+
+
+
+
+
